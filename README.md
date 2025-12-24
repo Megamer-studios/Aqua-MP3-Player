@@ -21,7 +21,7 @@ The interface uses a **transparent background**, allowing it to float naturally 
 
 ---
 
-## Screenshots
+## User-Interface
 
 <!-- SCREENSHOTS -->
 <p align="center">

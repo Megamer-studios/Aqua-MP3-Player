@@ -1,0 +1,249 @@
+:root {
+  --width: 687px;
+  --height: 328px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: var(--width);
+  height: var(--height);
+  overflow: hidden;
+  background-color: transparent;
+  /* Let the image define alpha */
+  font-family: 'Segoe UI', sans-serif;
+  user-select: none;
+  cursor: default;
+}
+
+#main-container {
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/BgDefault.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+/* The entire container is a drag region, buttons will override this by being on top or having no-drag */
+#drag-region {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* Common Control Styles */
+.control-btn,
+.icon-btn,
+.action-btn {
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+  /* Above drag region */
+  /* border: 1px solid red; /* Debugging */
+}
+
+/* 
+  Button Hover Effects
+  In C#, hovering a label changed the *entire* background image.
+  We can replicate this by changing #main-container's background-image
+  using JS classes or specific hover selectors if we structure it right.
+  However, pure CSS :hover on a child causing parent background change 
+  is tricky without :has(). Tauri uses modern WebView so :has() is supported!
+*/
+
+/* Back: 270, 72. Size 48, 25. Triangle pointing down */
+#btn-back {
+  left: 270px;
+  top: 72px;
+  width: 48px;
+  height: 25px;
+  display: flex;
+  align-items: flex-start;
+  /* top align */
+  justify-content: center;
+  font-size: 10px;
+  /* smaller font */
+  padding-top: 2px;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  z-index: 20;
+  /* Background color for debug/visibility if needed, but intended to be transparent over BG image */
+  /* background-color: rgba(255,255,255,0.2); */
+}
+
+body:has(#btn-back:hover) #main-container {
+  background-image: url('assets/BgBt1.png');
+}
+
+body:has(#btn-back:active) #main-container {
+  background-image: url('assets/BgBt1.png');
+}
+
+/* Play/Pause: 336, 85. Size 96, 25. Triangle */
+#btn-play {
+  left: 336px;
+  top: 85px;
+  width: 96px;
+  height: 25px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 10px;
+  padding-top: 2px;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  z-index: 20;
+}
+
+body:has(#btn-play:hover) #main-container {
+  background-image: url('assets/BgBt2.png');
+}
+
+/* Reset: 428, 60. Size 94, 25. Triangle */
+#btn-reset {
+  left: 428px;
+  top: 60px;
+  width: 94px;
+  height: 25px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 10px;
+  padding-top: 2px;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  z-index: 20;
+}
+
+body:has(#btn-reset:hover) #main-container {
+  background-image: url('assets/BgBt3.png');
+}
+
+/* Next: 520, 95. Size 48, 25. Triangle */
+#btn-next {
+  left: 520px;
+  top: 95px;
+  width: 48px;
+  height: 25px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 10px;
+  padding-top: 2px;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  z-index: 20;
+}
+
+body:has(#btn-next:hover) #main-container {
+  background-image: url('assets/BgBt4.png');
+}
+
+/* Menu: 86, 188. Size 44, 42. Circle shape */
+#btn-menu {
+  left: 86px;
+  top: 188px;
+  width: 44px;
+  height: 42px;
+  background-image: url('assets/Menu.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  z-index: 20;
+  cursor: pointer;
+  /* Fix: User said "takes up the circle instead of black panel". 
+     The black panel is likely the background. 
+     If we make it round and ensure size fits, it should trigger correctly. */
+}
+
+/* Interaction logic from C#:
+   MouseEnter -> BgMenu1
+   MouseDown -> BgMenu2
+*/
+body:has(#btn-menu:hover) #main-container {
+  background-image: url('assets/BgMenu1.png');
+}
+
+body:has(#btn-menu:active) #main-container {
+  background-image: url('assets/BgMenu2.png');
+}
+
+/* Close X: 593, 222. Size 55, 59 */
+#btn-close {
+  left: 593px;
+  top: 222px;
+  width: 55px;
+  height: 59px;
+  background-color: crimson;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  z-index: 20;
+  cursor: pointer;
+  /* border: 1px solid black; */
+}
+
+/* Repeat: 155, 233. Size 94, 48 */
+#btn-repeat {
+  left: 155px;
+  top: 233px;
+  width: 94px;
+  height: 48px;
+  background-color: #696969;
+  /* ControlDarkDark */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  z-index: 20;
+  cursor: pointer;
+}
+
+/* Song Name: 270, 208. Size 193, 53 */
+#song-name-container {
+  position: absolute;
+  left: 270px;
+  top: 208px;
+  width: 193px;
+  height: 53px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* Or center? label6 was top-left 3,4 */
+  overflow: hidden;
+  z-index: 5;
+}
+
+#song-name {
+  font-size: 11px;
+  /* 10.8pt ~ 14px? adjusting */
+  font-weight: bold;
+  white-space: nowrap;
+  color: #000;
+}
+
+/* RPT Status: 270, 264 */
+#rpt-status {
+  position: absolute;
+  left: 270px;
+  top: 264px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+  z-index: 5;
+}
+
+/* Song Index: 520, 212 */
+#song-index {
+  position: absolute;
+  left: 520px;
+  top: 212px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  z-index: 5;
+}

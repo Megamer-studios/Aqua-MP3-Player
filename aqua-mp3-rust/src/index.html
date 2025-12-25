@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aqua MP3 Player</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="main-container">
+    <!-- Background is handled via CSS on main-container to allow swapping -->
+
+    <!-- Drag region for the whole window (except buttons) -->
+    <div id="drag-region" data-tauri-drag-region></div>
+
+    <!-- Controls (positioning based on C# Designer) -->
+    <!-- label1: Back -->
+    <div id="btn-back" class="control-btn" title="Back">Back</div>
+
+    <!-- label2: Play/Pause -->
+    <div id="btn-play" class="control-btn" title="Play/Pause">Play/Pause</div>
+
+    <!-- label3: Reset/Stop -->
+    <div id="btn-reset" class="control-btn" title="Reset">Reset time</div>
+
+    <!-- label4: Next -->
+    <div id="btn-next" class="control-btn" title="Next">Next</div>
+
+    <!-- pictureBox2: Menu/Folder -->
+    <div id="btn-menu" class="icon-btn" title="Open Folder"></div>
+
+    <!-- button1: Close X -->
+    <div id="btn-close" class="action-btn" title="Close">X</div>
+
+    <!-- button2: Repeat -->
+    <div id="btn-repeat" class="action-btn" title="Repeat">Repeat</div>
+
+    <!-- Displays -->
+    <div id="song-name-container">
+      <span id="song-name">Select Folder...</span>
+    </div>
+
+    <div id="rpt-status">RPT OFF</div>
+    <div id="song-index">0</div>
+
+    <!-- Hidden playlist overlay (maybe show on menu click?) 
+             Original app didn't seem to show a playlist list on the main UI, 
+             it just cycled through. I'll keep it hidden or add a small drawer if needed. 
+             For now, strict port means no visible list on main screen? 
+             Actually original code had `playList` list but no UI control for it visible in Designer 
+             except maybe `label6` showing current song name.
+        -->
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

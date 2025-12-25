@@ -1,4 +1,5 @@
 using Aqua_MP3_Player.Properties;
+using NAudio.Utils;
 using System.Diagnostics;
 
 namespace Aqua_MP3_Player
@@ -12,6 +13,10 @@ namespace Aqua_MP3_Player
         int currentSong;
         NAudio.Wave.AudioFileReader? player = null;
         bool repeat = false;
+        float volume = 1.0f;
+
+
+
         public Form1()
         {
             InitializeComponent();
@@ -22,12 +27,14 @@ namespace Aqua_MP3_Player
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            label5.Text = "Songs listened: " + Settings.Default.ListenedTo.ToString();
             selectedSong = playList[0];
             player = new NAudio.Wave.AudioFileReader(selectedSong);
             label1.BackColor = Color.FromArgb(255, 141, 196, 156);
             label2.BackColor = Color.FromArgb(255, 141, 196, 156);
             label3.BackColor = Color.FromArgb(255, 141, 196, 156);
             label4.BackColor = Color.FromArgb(255, 141, 196, 156);
+            label5.BackColor = Color.FromArgb(255, 172, 220, 194);
             label6.BackColor = Color.FromArgb(255, 172, 220, 194);
             label7.BackColor = Color.FromArgb(255, 172, 220, 194);
             label8.BackColor = Color.FromArgb(255, 172, 220, 194);
@@ -70,6 +77,10 @@ namespace Aqua_MP3_Player
         {
             if (output.PlaybackState == NAudio.Wave.PlaybackState.Stopped && repeat)
             {
+                Settings.Default.ListenedTo += 1;
+                Settings.Default.Save();
+                label5.Text = "Songs listened: " + Settings.Default.ListenedTo.ToString();
+
                 // song
                 output.Stop();
                 output.Dispose();
@@ -88,6 +99,9 @@ namespace Aqua_MP3_Player
             }
             else if (output.PlaybackState == NAudio.Wave.PlaybackState.Stopped && !repeat)
             {
+                Settings.Default.ListenedTo += 1;
+                Settings.Default.Save();
+                label5.Text = "Songs listened: " + Settings.Default.ListenedTo.ToString();
                 currentSong++;
                 if (currentSong >= playList.Count)
                 {
@@ -160,12 +174,20 @@ namespace Aqua_MP3_Player
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             InfoDisplay inf = new InfoDisplay("Aqua MP3 Player", "Change song directory!");
+            inf.BringToFront();
             inf.ShowDialog();
-            folderBrowserDialog1.ShowDialog();
-            playList = Directory.GetFiles(folderBrowserDialog1.SelectedPath).Where(s => s.Contains(".mp3") || s.Contains(".wav") || s.Contains(".flac") || s.Contains(".m4a")).ToList();
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                playList = Directory.GetFiles(folderBrowserDialog1.SelectedPath).Where(s => s.Contains(".mp3") || s.Contains(".wav") || s.Contains(".flac") || s.Contains(".m4a")).ToList();
 
-            selectedSong = playList[0];
-            player = new NAudio.Wave.AudioFileReader(selectedSong);
+                selectedSong = playList[0];
+                player = new NAudio.Wave.AudioFileReader(selectedSong);
+            }
+            else {                 MessageDisplay msg = new MessageDisplay("Aqua MP3 Player", "No folder selected.");
+                msg.BringToFront();
+                msg.ShowDialog();
+            }
+
 
         }
 
@@ -372,5 +394,132 @@ namespace Aqua_MP3_Player
             }
 
         }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            if (volume < 2.0f)
+            {
+                volume += 0.1f;
+                player.Volume = volume;
+
+                progressBar1.Value = (int)(volume * 10);
+                progressBar1.Visible = true;
+                System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+                int a = 0;
+                timer.Interval = 1000;
+                timer.Tick += (s, ev) =>
+                {
+
+                    progressBar1.Visible = false;
+
+
+                    timer.Stop();
+
+                    timer.Dispose();
+                };
+                timer.Start();
+            }
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            if (volume > 0.0f)
+            {
+                volume -= 0.1f;
+
+                player.Volume = volume;
+                progressBar1.Value = (int)(volume * 10);
+                progressBar1.Visible = true;
+                System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+                int a = 0;
+                timer.Interval = 1000;
+                timer.Tick += (s, ev) =>
+                {
+
+                    progressBar1.Visible = false;
+
+
+                    timer.Stop();
+
+                    timer.Dispose();
+                };
+                timer.Start();
+
+            }
+
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            volume = 1.0f;
+
+            player.Volume = volume;
+            progressBar1.Value = (int)(volume * 10);
+            progressBar1.Visible = true;
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+            int a = 0;
+            timer.Interval = 1000;
+            timer.Tick += (s, ev) =>
+            {
+
+                progressBar1.Visible = false;
+
+
+                timer.Stop();
+
+                timer.Dispose();
+            };
+            timer.Start();
+
+        }
+
+        private void pictureBox4_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBox4.Image = Resources.VolDown;
+            pictureBox3.Image = Resources.VolumeDown;
+        }
+
+        private void pictureBox4_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBox4.Image = Resources.VolDown2;
+            pictureBox3.Image = Resources.VolumeDown;
+        }
+
+        private void pictureBox4_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox4.Image = Resources.VolDown2;
+            pictureBox3.Image = Resources.Volume;
+        }
+
+        private void pictureBox4_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBox4.Image = Resources.VolDown2;
+            pictureBox3.Image = Resources.VolumeDown;
+        }
+
+        private void pictureBox5_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBox5.Image = Resources.VolUp;
+            pictureBox3.Image = Resources.VolumeUp;
+        }
+
+        private void pictureBox5_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBox5.Image = Resources.VolUp2;
+            pictureBox3.Image = Resources.VolumeUp;
+        }
+
+        private void pictureBox5_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox5.Image = Resources.VolUp2;
+            pictureBox3.Image = Resources.Volume;
+        }
+
+        private void pictureBox5_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBox5.Image = Resources.VolUp2;
+            pictureBox3.Image = Resources.VolumeUp;
+        }
     }
+
 }

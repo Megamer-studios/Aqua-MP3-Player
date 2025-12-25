@@ -44,9 +44,18 @@
             button2 = new Button();
             panel1 = new Panel();
             folderBrowserDialog1 = new FolderBrowserDialog();
+            label5 = new Label();
+            pictureBox3 = new PictureBox();
+            pictureBox4 = new PictureBox();
+            pictureBox5 = new PictureBox();
+            progressBar1 = new ProgressBar();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             SuspendLayout();
             // 
             // timer1
@@ -210,12 +219,93 @@
             panel1.Size = new Size(193, 53);
             panel1.TabIndex = 18;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(420, 271);
+            label5.Name = "label5";
+            label5.Size = new Size(114, 20);
+            label5.TabIndex = 19;
+            label5.Text = "Songs listened:";
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Image = Properties.Resources.Volume;
+            pictureBox3.Location = new Point(12, 12);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(237, 123);
+            pictureBox3.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox3.TabIndex = 20;
+            pictureBox3.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.BackColor = SystemColors.ControlDarkDark;
+            pictureBox4.Image = Properties.Resources.VolDown2;
+            pictureBox4.Location = new Point(103, 72);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(33, 33);
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox4.TabIndex = 21;
+            pictureBox4.TabStop = false;
+            pictureBox4.Click += pictureBox4_Click;
+            pictureBox4.MouseDown += pictureBox4_MouseDown;
+            pictureBox4.MouseEnter += pictureBox4_MouseEnter;
+            pictureBox4.MouseLeave += pictureBox4_MouseLeave;
+            pictureBox4.MouseUp += pictureBox4_MouseUp;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.BackColor = SystemColors.ControlDarkDark;
+            pictureBox5.Image = Properties.Resources.VolUp2;
+            pictureBox5.Location = new Point(155, 60);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(33, 33);
+            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox5.TabIndex = 22;
+            pictureBox5.TabStop = false;
+            pictureBox5.Click += pictureBox5_Click;
+            pictureBox5.MouseDown += pictureBox5_MouseDown;
+            pictureBox5.MouseEnter += pictureBox5_MouseEnter;
+            pictureBox5.MouseLeave += pictureBox5_MouseLeave;
+            pictureBox5.MouseUp += pictureBox5_MouseUp;
+            // 
+            // progressBar1
+            // 
+            progressBar1.BackColor = Color.PaleTurquoise;
+            progressBar1.ForeColor = Color.MediumSpringGreen;
+            progressBar1.Location = new Point(12, 12);
+            progressBar1.Maximum = 20;
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(213, 29);
+            progressBar1.TabIndex = 23;
+            progressBar1.Visible = false;
+            // 
+            // button3
+            // 
+            button3.BackColor = SystemColors.ControlDarkDark;
+            button3.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button3.Location = new Point(130, 111);
+            button3.Name = "button3";
+            button3.Size = new Size(73, 22);
+            button3.TabIndex = 25;
+            button3.Text = "Reset";
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click_1;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Cyan;
             ClientSize = new Size(687, 328);
+            Controls.Add(button3);
+            Controls.Add(progressBar1);
+            Controls.Add(pictureBox5);
+            Controls.Add(pictureBox4);
+            Controls.Add(pictureBox3);
+            Controls.Add(label5);
             Controls.Add(panel1);
             Controls.Add(button2);
             Controls.Add(label8);
@@ -239,6 +329,9 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -258,5 +351,11 @@
         private Button button2;
         private Panel panel1;
         private FolderBrowserDialog folderBrowserDialog1;
+        private Label label5;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox4;
+        private PictureBox pictureBox5;
+        private ProgressBar progressBar1;
+        private Button button3;
     }
 }

@@ -1,7 +1,7 @@
 # Aqua MP3 Player
 
 <!-- LOGO -->
-p align="center">
+<p align="center">
   <img src="Icon.png" alt="Aqua MP3 Player Logo" >
 </p>
 
@@ -23,6 +23,13 @@ The interface uses a **transparent background**, allowing it to float naturally 
 
 ## User-Interface
 
+-- New volume controls --
+
+<p align="center">
+  <img src="ScreenshotVolume.png" alt="Main Player Interface">
+</p>
+
+-- Old UI --
 <!-- SCREENSHOTS -->
 <p align="center">
   <img src="Screenshot 2025-12-24 213806.png" alt="Main Player Interface">
